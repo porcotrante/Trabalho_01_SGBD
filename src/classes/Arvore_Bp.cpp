@@ -13,6 +13,7 @@ Arvore_Bp::Arvore_Bp(int n_filhos, bool folha){ //construtor de um nó não raiz
     this->chaves = std::vector<int>();
     this->filhos = std::vector<Arvore_Bp*>();
     this->prox_folha = NULL;
+    this->ant_folha = NULL;
 }
 
 void Arvore_Bp::busca(int valor){
@@ -63,8 +64,9 @@ void Arvore_Bp::inserir(int valor, bool split, Arvore_Bp* filhoSplit, Arvore_Bp*
             // Cria novo nó folha (irmão)
             Arvore_Bp* irmao = new Arvore_Bp(ordem * 2 + 1, true); //TODO: escrever no arquivo de informações do índicie
             irmao->pai = pai;
-            irmao->prox_folha = prox_folha;
-            prox_folha = irmao;
+            irmao->prox_folha = prox_folha; //o irmão herda o prox_nó desse nó
+            prox_folha = irmao; //o próximo nó deste nó agora é o irmão
+            irmao->ant_folha = this; //o nó anterior do irmão aponta para esse nó
 
             // Move metade superior das chaves para o irmão
             irmao->chaves.assign(chaves.begin() + mid, chaves.end());
@@ -155,6 +157,7 @@ Arvore_Bp::Arvore_Bp(int n_filhos, char* file_url){ //construtor da raiz
 
     this->pai = NULL;
     this->prox_folha = NULL;
+    this->ant_folha = NULL;
     this->altura = 0;
 
     //TODO: Fazer as inserções automaticamente a partir do arquivo

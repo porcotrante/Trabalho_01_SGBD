@@ -5,10 +5,11 @@
 class Arvore_Bp
 {
 public:
-    std::vector<int> chaves;
-    std::vector<Arvore_Bp*> filhos;
-    Arvore_Bp* pai;
-    Arvore_Bp* prox_folha;
+    std::vector<int> chaves; //TODO: guardar no arquivo e não aqui
+    std::vector<Arvore_Bp*> filhos; //TODO: guardar no arquivo e não aqui
+    Arvore_Bp* pai; //TODO: guardar no arquivo e não aqui
+    Arvore_Bp* prox_folha; //TODO: guardar no arquivo e não aqui
+    Arvore_Bp* ant_folha; //TODO: guardar no arquivo e não aqui
     bool raiz;
     int altura;
     float ordem;
