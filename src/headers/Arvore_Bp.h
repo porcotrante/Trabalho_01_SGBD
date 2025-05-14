@@ -4,21 +4,21 @@
 
 class Arvore_Bp
 {
-private:
-    int ordem;
-    int altura;
-    bool raiz;
-    bool folha;
+public:
     std::vector<int> chaves;
     std::vector<Arvore_Bp*> filhos;
-public:
+    Arvore_Bp* pai;
+    Arvore_Bp* prox_folha;
+    bool raiz;
+    int altura;
+    float ordem;
+    bool folha;
     Arvore_Bp(int n_filhos, char* file_url); //construtor para a raiz
     Arvore_Bp(int n_filhos, bool folha); //construtor para um nó não raiz (pode ser folha ou não)
     ~Arvore_Bp();
-    void inserir();
+    void inserir(int valor, bool split, Arvore_Bp* filho_split, Arvore_Bp** raiz_ptr);
     void busca(int valor);
-    void inserir_chave(int i,int chave);
-    void inserir_filho(int i,Arvore_Bp* filho);
+    int buscaRec(int valor);
 };
 
 #endif
