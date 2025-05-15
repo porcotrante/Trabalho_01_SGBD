@@ -1,7 +1,8 @@
 #include "../headers/Arvore_Bp.h"
 #include <iostream>
 #include <vector>
-
+#include <fstream>
+#include <string>
 using namespace std;
 
 Arvore_Bp::Arvore_Bp(int n_filhos, bool folha){ //construtor de um nó não raiz
@@ -18,7 +19,16 @@ Arvore_Bp::Arvore_Bp(int n_filhos, bool folha){ //construtor de um nó não raiz
 void Arvore_Bp::busca(int valor){
     if (folha)
     {   //vai recursivamente em todas as folhas
-        cout << Arvore_Bp::buscaRec(valor) << endl; //TODO: Escrever no arquivo de retorno ao invés de printar
+        //cout << Arvore_Bp::buscaRec(valor) << endl; //TODO: Escrever no arquivo de retorno ao invés de printar
+            std::ofstream arquivo("out.txt", std::ios::app); // Abre o arquivo de saída
+            if (arquivo.is_open()) {
+                int resultado = Arvore_Bp::buscaRec(valor);
+                arquivo << "BUS=:" << valor << "/" << resultado << std::endl; // Escreve o resultado no formato especificado
+                arquivo.close();
+            } else {
+                std::cerr << "Erro ao abrir o arquivo de saída." << std::endl;
+            }
+        
     }
     else {
         int i = 0;
@@ -55,7 +65,13 @@ void Arvore_Bp::inserir(int valor, bool split, Arvore_Bp* filhoSplit, Arvore_Bp*
         auto it = chaves.begin();
         while (it != chaves.end() && *it <= valor) it++;
         chaves.insert(it, valor); //TODO: Escrever no arquivo de retorno
-
+        std::ofstream arquivo("out.txt", std::ios::app);
+        if (arquivo.is_open()) {
+            arquivo << "INC:" << valor << "/1" << std::endl; // Sempre insere 1 tupla
+            arquivo.close();
+        } else {
+            std::cerr << "Erro ao abrir o arquivo de saída." << std::endl;
+        }
         // Se houver overflow, fazer split
         if (chaves.size() > ordem * 2) {
             int mid = chaves.size() / 2;
@@ -65,7 +81,7 @@ void Arvore_Bp::inserir(int valor, bool split, Arvore_Bp* filhoSplit, Arvore_Bp*
             irmao->pai = pai;
             irmao->prox_folha = prox_folha;
             prox_folha = irmao;
-
+            
             // Move metade superior das chaves para o irmão
             irmao->chaves.assign(chaves.begin() + mid, chaves.end());
             chaves.erase(chaves.begin() + mid, chaves.end());
@@ -137,6 +153,7 @@ void Arvore_Bp::inserir(int valor, bool split, Arvore_Bp* filhoSplit, Arvore_Bp*
                 irmao->pai = nova_raiz;
                 nova_raiz->raiz = true;
                 this->raiz = false;
+                
             }
         }
     }
