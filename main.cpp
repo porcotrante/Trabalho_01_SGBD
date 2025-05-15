@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <memory>
 #include "./src/headers/Arvore_Bp.h"
 using namespace std;
 
@@ -35,28 +36,28 @@ int main() {
         }
     }
 
-    // Processar as operações
-    while (getline(entrada, linha)) {
-        if (linha.rfind("INC:", 0) == 0) { // Operação de inserção
-            int valor = stoi(linha.substr(4));
+    while (std::getline(entrada, linha)) {
+        if (linha.rfind("INC:", 0) == 0) {
+            int valor = std::stoi(linha.substr(4));
             (*raiz_ptr)->inserir(valor, false, nullptr, raiz_ptr);
-            saida << "INC:" << valor << "/1" << endl; // Sempre insere 1 tupla
-        } else if (linha.rfind("BUS=:", 0) == 0) { // Operação de busca
-            int valor = stoi(linha.substr(5));
-            int resultado = (*raiz_ptr)->buscaRec(valor);
-            saida << "BUS=:" << valor << "/" << resultado << endl;
-        } else {
-            cerr << "Comando inválido: " << linha << endl;
+
+            std::cout << "Inserido: " << valor << "\n";
+        } else if (linha.rfind("BUS=:", 0) == 0) {
+            int valor = std::stoi(linha.substr(5));
+            (*raiz_ptr)->busca(valor);
         }
     }
 
+    saida.close();
+    ofstream saida1("out.txt", std::ios::app);
+
     // Escrever a altura da árvore no final do arquivo de saída
     if (raiz) {
-        saida << "H/" << raiz->altura << endl;
+        saida1 << "H/" << (*raiz_ptr)->altura << endl;
     }
 
     entrada.close();
-    saida.close();
+    saida1.close();
 
     return 0;
 }

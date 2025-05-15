@@ -14,12 +14,14 @@ public:
     int altura;
     float ordem;
     bool folha;
+    int id;
     Arvore_Bp(int n_filhos, char* file_url); //construtor para a raiz
     Arvore_Bp(int n_filhos, bool folha); //construtor para um nó não raiz (pode ser folha ou não)
     ~Arvore_Bp();
     void inserir(int valor, bool split, Arvore_Bp* filho_split, Arvore_Bp** raiz_ptr);
     void busca(int valor);
     int buscaRec(int valor);
+    void lerArquivo(int id);
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -15,6 +16,38 @@ Arvore_Bp::Arvore_Bp(int n_filhos, bool folha){ //construtor de um nó não raiz
     this->filhos = std::vector<Arvore_Bp*>();
     this->prox_folha = NULL;
     this->ant_folha = NULL;
+}
+
+void Arvore_Bp::lerArquivo(int id){
+    std::ifstream arquivo("./index.txt");
+    std::string linha;
+    int numeroLinha = 0;
+
+    if (!arquivo.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo.\n";
+    }
+    
+    std::string linhaEncontrada;
+
+    while (std::getline(arquivo, linha)) {
+        numeroLinha++;
+        if (numeroLinha == 1) continue;
+
+        std::stringstream ss(linha);
+        std::string campoIdStr;
+
+        if (std::getline(ss, campoIdStr, ';')) {
+            try {
+                int campoId = std::stoi(campoIdStr);
+                if (campoId == id) {
+                    linhaEncontrada = linha;
+                    break;
+                }
+            } catch (std::invalid_argument& e) {
+                std::cerr << "ID inválido na linha " << numeroLinha << ": " << campoIdStr << '\n';
+            }
+        }
+    }
 }
 
 void Arvore_Bp::busca(int valor){

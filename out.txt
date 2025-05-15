@@ -9,8 +9,8 @@ INC:6/1
 INC:7/1
 INC:8/1
 INC:9/1
-BUS=:0/0
-BUS=:5/0
+BUS=:0/1
+BUS=:5/1
 BUS=:10/0
 BUS=:15/0
 BUS=:20/0
