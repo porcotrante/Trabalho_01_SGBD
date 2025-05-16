@@ -13,7 +13,7 @@ public:
     int ant_folha; //TODO: guardar no arquivo e não aqui
     int tipo; //0 para normal, 1 para folha
     int id;
-    Arvore_Bp(int n_filhos, char* file_url); //construtor para a raiz
+    Arvore_Bp(int n_filhos); //construtor para a raiz
     Arvore_Bp(int n_filhos, int tipo); //construtor para um nó não raiz (pode ser folha ou não)
     ~Arvore_Bp();
     void inserir(int valor);

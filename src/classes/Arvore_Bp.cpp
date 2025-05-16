@@ -64,6 +64,7 @@ void Arvore_Bp::lerArquivo(int id){
         std::string chave;
         if (campo != "_")
         {
+            chaves.clear();
             while (std::getline(ssChaves, chave, ',')) {
                 chaves.push_back(std::stoi(chave));
             }
@@ -78,6 +79,7 @@ void Arvore_Bp::lerArquivo(int id){
         std::string filho;
         if (campo != "_")
         {
+            filhos.clear();
             while (std::getline(ssFilhos, filho, ',')) {
                 filhos.push_back(std::stoi(filho));
             }
@@ -96,6 +98,7 @@ void Arvore_Bp::lerArquivo(int id){
             std::string inner = campo.substr(1, campo.size() - 2); // remove colchetes externos
 
             size_t pos = 0;
+            referencias.clear();
             while (pos < inner.size()) {
                 if (inner[pos] == '[') {
                     size_t end = inner.find(']', pos);
@@ -391,6 +394,7 @@ void Arvore_Bp::inserir(int valor) {
     } else {
         std::cerr << "Erro ao abrir o arquivo de saída." << std::endl;
     }
+    
 
     if (chaves.size() > n_filhos - 1) //se passar do limite, split
     {
@@ -417,7 +421,7 @@ void Arvore_Bp::inserir(int valor) {
 
         atualizarArquivo();
         irmao->inserirArquivo();
-        irmao->~Arvore_Bp(); //destruindo o objeto irmão
+        delete irmao; //destruindo o objeto irmão
 
         if (thisId != raiz)
         {
@@ -481,7 +485,7 @@ void Arvore_Bp::inserirNaoFolha(int valor, int split_filho, int raiz, int n_filh
 
         atualizarArquivo();
         irmao->inserirArquivo();
-        irmao->~Arvore_Bp(); //destruindo o objeto irmão
+        delete irmao;
 
         if (thisId != raiz)
         {
@@ -517,7 +521,7 @@ void Arvore_Bp::inserirNaoFolha(int valor, int split_filho, int raiz, int n_filh
     
 }
 
-Arvore_Bp::Arvore_Bp(int n_filhos, char* file_url){ //construtor da raiz
+Arvore_Bp::Arvore_Bp(int n_filhos){ //construtor da raiz
     //alocando as configurações do nó
     this->tipo = 1;
     Utils::construirHeader(0, 1, n_filhos);

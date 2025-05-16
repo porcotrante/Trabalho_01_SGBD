@@ -4,11 +4,12 @@
 #include <string>
 #include <memory>
 #include "./src/headers/Arvore_Bp.h"
+#include "./src/headers/Utils.h"
 using namespace std;
 
 int main() {
     std::ofstream arquivo("index.txt");
-    /*ifstream entrada("in.txt");
+    ifstream entrada("in.txt");
     ofstream saida("out.txt");
 
     if (!entrada.is_open()) {
@@ -22,30 +23,22 @@ int main() {
 
     string linha;
     int n_filhos = 0;
-    Arvore_Bp* raiz = nullptr;
-    Arvore_Bp** raiz_ptr = &raiz;
 
-    // Ler a primeira linha (quantidade de filhos)
-    if (getline(entrada, linha)) {
-        saida << linha << endl; // Escreve a linha inicial no arquivo de saída
-        if (linha.rfind("FLH/", 0) == 0) { // Verifica se começa com "FLH/"
-            n_filhos = stoi(linha.substr(4));
-            raiz = new Arvore_Bp(n_filhos, nullptr); // Cria a raiz inicial
-        } else {
-            cerr << "Formato inválido na primeira linha do arquivo de entrada." << endl;
-            return 1;
-        }
-    }
+    getline(entrada, linha);
+    n_filhos = stoi(linha.substr(4));
+    Arvore_Bp raiz = Arvore_Bp(n_filhos);
+
+    saida << linha << endl;
 
     while (std::getline(entrada, linha)) {
         if (linha.rfind("INC:", 0) == 0) {
             int valor = std::stoi(linha.substr(4));
-            (*raiz_ptr)->inserir(valor, false, nullptr, raiz_ptr);
+            raiz.inserir(valor);
 
             std::cout << "Inserido: " << valor << "\n";
         } else if (linha.rfind("BUS=:", 0) == 0) {
             int valor = std::stoi(linha.substr(5));
-            (*raiz_ptr)->busca(valor);
+            raiz.busca(valor);
         }
     }
 
@@ -53,20 +46,10 @@ int main() {
     ofstream saida1("out.txt", std::ios::app);
 
     // Escrever a altura da árvore no final do arquivo de saída
-    if (raiz) {
-        saida1 << "H/" << (*raiz_ptr)->altura << endl;
-    }
+    saida1 << "H/" << Utils::getAltura() << endl;
 
     entrada.close();
-    saida1.close();*/
-
-    Arvore_Bp arv = Arvore_Bp(4, nullptr);
-
-    arv.inserir(1933);
-    arv.inserir(1916);
-    arv.inserir(1929);
-    arv.inserir(1992);
-    arv.busca(1992);
+    saida1.close();
 
     return 0;
 }
