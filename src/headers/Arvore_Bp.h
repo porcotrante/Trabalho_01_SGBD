@@ -6,22 +6,23 @@ class Arvore_Bp
 {
 public:
     std::vector<int> chaves; //TODO: guardar no arquivo e não aqui
-    std::vector<Arvore_Bp*> filhos; //TODO: guardar no arquivo e não aqui
-    Arvore_Bp* pai; //TODO: guardar no arquivo e não aqui
-    Arvore_Bp* prox_folha; //TODO: guardar no arquivo e não aqui
-    Arvore_Bp* ant_folha; //TODO: guardar no arquivo e não aqui
-    bool raiz;
-    int altura;
-    float ordem;
-    bool folha;
+    std::vector<int> filhos; //TODO: guardar no arquivo e não aqui
+    std::vector<std::vector<int>> referencias; //TODO: guardar no arquivo e não aqui
+    int pai; //TODO: guardar no arquivo e não aqui
+    int prox_folha; //TODO: guardar no arquivo e não aqui
+    int ant_folha; //TODO: guardar no arquivo e não aqui
+    int tipo; //0 para normal, 1 para folha
     int id;
     Arvore_Bp(int n_filhos, char* file_url); //construtor para a raiz
-    Arvore_Bp(int n_filhos, bool folha); //construtor para um nó não raiz (pode ser folha ou não)
+    Arvore_Bp(int n_filhos, int tipo); //construtor para um nó não raiz (pode ser folha ou não)
     ~Arvore_Bp();
-    void inserir(int valor, bool split, Arvore_Bp* filho_split, Arvore_Bp** raiz_ptr);
+    void inserir(int valor);
+    void inserirNaoFolha(int valor, int split_filho, int raiz, int n_filhos, int altura);
     void busca(int valor);
     int buscaRec(int valor);
     void lerArquivo(int id);
+    void inserirArquivo();
+    void atualizarArquivo();
 };
 
 #endif

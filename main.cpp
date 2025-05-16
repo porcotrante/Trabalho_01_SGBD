@@ -7,7 +7,8 @@
 using namespace std;
 
 int main() {
-    ifstream entrada("in.txt");
+    std::ofstream arquivo("index.txt");
+    /*ifstream entrada("in.txt");
     ofstream saida("out.txt");
 
     if (!entrada.is_open()) {
@@ -57,7 +58,15 @@ int main() {
     }
 
     entrada.close();
-    saida1.close();
+    saida1.close();*/
+
+    Arvore_Bp arv = Arvore_Bp(4, nullptr);
+
+    arv.inserir(1933);
+    arv.inserir(1916);
+    arv.inserir(1929);
+    arv.inserir(1992);
+    arv.busca(1992);
 
     return 0;
 }
