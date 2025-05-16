@@ -350,7 +350,7 @@ int Arvore_Bp::buscaRec(int valor){
         {
             if (chaves[i] == valor)
             {
-                count += (referencias[i-1]).size(); //contando quantas tuplas tem a chave buscada
+                count += (referencias[i]).size(); //contando quantas tuplas tem a chave buscada
             }
         }
         
